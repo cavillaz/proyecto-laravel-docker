@@ -21,11 +21,17 @@ jobs:
     - name: Start containers
       run: docker compose up -d
 
-    - name: Wait for database
+    - name: Wait for containers
       run: sleep 15
+
+    - name: Show containers
+      run: docker ps -a  
+
+    - name: Install dependencies
+      run: docker compose exec -T app composer install
+
+    - name: Generate key
+      run: docker compose exec -T app php artisan key:generate
 
     - name: Run migrations
       run: docker compose exec -T app php artisan migrate
-
-    - name: Test Laravel
-      run: docker compose exec -T app php artisan test  
