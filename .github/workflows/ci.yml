@@ -12,7 +12,8 @@ jobs:
 
     steps:
 
-    - uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v3
 
     - name: Build containers
       run: docker compose build
@@ -20,5 +21,11 @@ jobs:
     - name: Start containers
       run: docker compose up -d
 
+    - name: Wait for database
+      run: sleep 15
+
     - name: Run migrations
-      run: docker compose exec -T laravel php artisan migrate
+      run: docker compose exec -T app php artisan migrate
+
+    - name: Test Laravel
+      run: docker compose exec -T app php artisan test  
