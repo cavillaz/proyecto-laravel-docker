@@ -1,0 +1,31 @@
+name: Laravel CI
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Clonar repositorio
+      uses: actions/checkout@v3
+
+    - name: Instalar Docker
+      run: docker compose version
+
+    - name: Construir contenedores
+      run: docker compose build
+
+    - name: Levantar contenedores
+      run: docker compose up -d
+
+    - name: Esperar DB
+      run: sleep 10
+
+    - name: Ejecutar migraciones
+      run: docker compose exec -T app php artisan migrate
