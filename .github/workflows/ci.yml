@@ -22,7 +22,7 @@ jobs:
       run: docker compose up -d
 
     - name: Wait for containers
-      run: sleep 15
+      run: sleep 20
 
     - name: Show containers
       run: docker ps -a  

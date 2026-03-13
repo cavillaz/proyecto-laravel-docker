@@ -1,16 +1,20 @@
-FROM php:8.2-fpm
+FROM php:8.2-cli
+
+WORKDIR /var/www
 
 RUN apt-get update && apt-get install -y \
     git \
     unzip \
     libpq-dev \
-    && docker-php-ext-install pdo pdo_pgsql
+    curl
 
-WORKDIR /var/www
+RUN docker-php-ext-install pdo pdo_pgsql
+
+# instalar composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 COPY . .
 
-RUN curl -sS https://getcomposer.org/installer | php
-RUN php composer.phar install
+RUN composer install
 
-CMD ["php-fpm"]
+CMD php artisan serve --host=0.0.0.0 --port=8000
