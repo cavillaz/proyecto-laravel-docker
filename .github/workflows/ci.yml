@@ -27,9 +27,6 @@ jobs:
     - name: Show containers
       run: docker ps -a  
 
-    - name: Install dependencies
-      run: docker compose exec -T app composer install
-
     - name: Generate key
       run: docker compose exec -T app php artisan key:generate
 
