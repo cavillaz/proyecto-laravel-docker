@@ -1,5 +1,5 @@
 <x-guest-layout>
-  <!--   <div style="text-align:center; margin-bottom:20px;">
+    <div style="text-align:center; margin-bottom:20px;">
         <h1 style="font-size:28px; font-weight:bold;">
             Deploy CI/CD versión 2 🚀
         </h1>
@@ -7,7 +7,7 @@
         <p style="color:gray;">
             Aplicación Laravel ejecutándose en Docker con CI/CD
         </p>
-    </div> -->
+    </div>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
