@@ -27,21 +27,33 @@ pipeline {
             }
         }
 
+        /* stage('Build Containers') {
+            steps {
+                sh 'docker ps'
+            }
+        } */
+
         stage('Start Containers') {
             steps {
                 sh 'docker compose -f docker-compose.yaml up -d'
             }
         }
 
+        /* stage('Build Containers') {
+            steps {
+                sh 'docker ps'
+            }
+        }
+ */
         stage('Install Laravel Dependencies') {
             steps {
-                sh 'docker compose exec -T app composer install'
+                sh 'docker compose exec -T app bash -c "cd /var/www && composer install"'
             }
         }
 
         stage('Run Migrations') {
             steps {
-                sh 'docker compose exec -T app php artisan migrate --force'
+                sh 'docker compose exec -T app bash -c "cd /var/www && php artisan migrate --force"'
             }
         }
 
