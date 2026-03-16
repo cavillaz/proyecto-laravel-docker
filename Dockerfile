@@ -14,4 +14,6 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 COPY . .
 
+RUN chmod -R 777 storage bootstrap/cache
+
 CMD ["php-fpm"]
