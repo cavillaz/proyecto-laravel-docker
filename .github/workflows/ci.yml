@@ -38,3 +38,5 @@ jobs:
 
     - name: Run migrations
       run: docker compose exec -T app php artisan migrate
+    - name: Show containers
+      run: docker ps -a  
