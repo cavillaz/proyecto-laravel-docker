@@ -21,6 +21,12 @@ pipeline {
             }
         }
 
+     /*    stage('Stop Containers') {
+            steps {
+                sh 'docker compose down --remove-orphans'
+            }
+        } */
+
         stage('Build Containers') {
             steps {
                 sh 'docker compose -f docker-compose.yaml build'
@@ -38,22 +44,22 @@ pipeline {
                 sh 'docker compose -f docker-compose.yaml up -d'
             }
         }
-
-        /* stage('Build Containers') {
+        
+     /*    stage('Build Containers') {
             steps {
                 sh 'docker ps'
             }
-        }
- */
+        } */
+ 
         stage('Install Laravel Dependencies') {
             steps {
-                sh 'docker compose exec -T app bash -c "cd /var/www && composer install"'
+                sh 'docker compose run --rm app composer install'
             }
         }
 
         stage('Run Migrations') {
             steps {
-                sh 'docker compose exec -T app bash -c "cd /var/www && php artisan migrate --force"'
+                sh 'docker compose run --rm app php artisan migrate --force'
             }
         }
 
